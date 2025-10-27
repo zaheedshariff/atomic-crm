@@ -11,11 +11,13 @@ Atomic CRM is a full-featured CRM built with React, shadcn-admin-kit, and Supaba
 - **Main Technologies**: React 19, Vite, TailwindCSS, shadcn/ui, react-admin
 
 ## Recent Changes (October 27, 2025)
-- Configured project to run in Replit environment
-- Set up demo mode to work without Supabase backend
-- Configured Vite dev server to bind to 0.0.0.0:5000
-- Added HMR (Hot Module Replacement) configuration for Replit proxy
-- Set up workflow to run `npm run dev:demo`
+- ✅ Configured project to run in Replit environment
+- ✅ Set up demo mode to work without Supabase backend
+- ✅ Configured Vite dev server to bind to 0.0.0.0:5000
+- ✅ Added HMR (Hot Module Replacement) configuration for Replit proxy
+- ✅ Fixed host blocking error by adding `allowedHosts: ['all']` to allow Replit's dynamic proxy URLs
+- ✅ Set up workflow to run `npm run dev:demo`
+- ✅ Configured deployment for production (autoscale mode)
 
 ## Architecture
 - **Frontend**: React application with Vite as the build tool
@@ -38,6 +40,11 @@ The app runs automatically via the configured workflow. For manual control:
 - Start dev server: `npm run dev:demo`
 - Build: `npm run build:demo`
 - Run tests: `npm test`
+
+## Deployment
+The app is configured for deployment using Replit's autoscale deployment:
+- Build command: `npm run build:demo`
+- Run command: `npx vite preview --host 0.0.0.0 --port`
 
 ## Customization
 The CRM can be customized by editing `demo/App.tsx` or `src/App.tsx` and passing props to the `<CRM>` component. See the inline documentation in those files for available customization options.
