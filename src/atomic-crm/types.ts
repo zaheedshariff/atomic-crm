@@ -151,6 +151,34 @@ export type Task = {
   sales_id?: Identifier;
 } & Pick<RaRecord, "id">;
 
+export type Equipment = {
+  stock_number: string;
+  manufacturer: string;
+  model: string;
+  year?: number;
+  condition?: string;
+  serial_number?: string;
+  hours?: number;
+  category?: string;
+  subcategories?: string[];
+  listing_type: string;
+  location?: string;
+  price?: number;
+  quantity: number;
+  description?: string;
+  private_notes?: string;
+  import_notes?: string;
+  images?: RAFile[];
+  public_documents?: RAFile[];
+  private_documents?: RAFile[];
+  status: string;
+  featured: boolean;
+  sales_id?: Identifier;
+  default_sales_rep_id?: Identifier;
+  created_at: string;
+  updated_at: string;
+} & Pick<RaRecord, "id">;
+
 export type ActivityCompanyCreated = {
   type: typeof COMPANY_CREATED;
   company_id: Identifier;
