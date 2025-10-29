@@ -15,12 +15,16 @@ Atomic CRM is a full-featured CRM built with React, shadcn-admin-kit, and Supaba
 ## Recent Changes (October 29, 2025)
 - ✅ Connected to production Supabase database
 - ✅ Created Supabase project "Atomic CRM Heavy Machinery" in US-East-1 region
-- ✅ Applied all 9 database migrations successfully
+- ✅ Applied all 10 database migrations successfully
 - ✅ Configured Supabase credentials as Replit secrets
 - ✅ Updated vite.config.ts with Replit-compatible server settings (port 5000, host 0.0.0.0)
 - ✅ Switched from demo mode to production mode (npm run dev)
 - ✅ Configured HMR for Replit's proxy environment
 - ✅ Set allowedHosts: true to enable Replit's dynamic proxy URLs
+- ✅ Fixed login page "Create account" link styling (white text on white background)
+- ✅ Implemented Google OAuth authentication with automatic user provisioning
+- ✅ Created RLS-safe database function for first-user detection
+- ✅ Configured OAuth to automatically create sales records from Google profile data
 
 ## Previous Changes (October 27, 2025)
 - ✅ Initial project setup in Replit environment
@@ -31,16 +35,17 @@ Atomic CRM is a full-featured CRM built with React, shadcn-admin-kit, and Supaba
 - **Frontend**: React application with Vite as the build tool
 - **Backend**: Supabase (PostgreSQL database + authentication + edge functions)
 - **Data Provider**: ra-supabase-core (connects React Admin to Supabase)
-- **Auth Provider**: Supabase Auth with email/password authentication
+- **Auth Provider**: Supabase Auth with email/password and Google OAuth authentication
 - **Entry Point**: `src/main.tsx` (production with Supabase)
 
 ## Database
 - **Provider**: Supabase (hosted PostgreSQL)
-- **Migrations**: All 9 migrations applied successfully
+- **Migrations**: All 10 migrations applied successfully
   - Database schema initialization (contacts, companies, deals, tasks, notes, tags)
   - Triggers and functions
   - Row-level security policies
   - JSON fields for emails and phone numbers
+  - RLS-safe `check_has_sales()` function for OAuth first-user detection
 - **Status**: ✅ All migrations synced between local and remote
 
 ## Environment Variables (Stored as Replit Secrets)
@@ -57,7 +62,11 @@ Atomic CRM is a full-featured CRM built with React, shadcn-admin-kit, and Supaba
 - Dashboard with charts
 - Import/Export functionality (CSV import for contacts)
 - Customizable themes (light/dark)
-- User authentication and management
+- **User authentication and management**:
+  - Email/password sign-up and login
+  - Google OAuth sign-in (automatic user creation from Google profile)
+  - First user to sign in becomes administrator
+  - Subsequent users are regular users
 - Role-based access control
 
 ## Running Locally
