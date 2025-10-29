@@ -87,12 +87,12 @@ export const LoginPage = (props: { redirectTo?: string }) => {
               Forgot your password?
             </Link>
 
-            <div className="text-sm text-center text-muted-foreground">
-              Don't have an account?{" "}
-              <Link to={"/sign-up"} className="hover:underline font-medium">
-                Create account
-              </Link>
-            </div>
+            <Link
+              to={"/sign-up"}
+              className="text-sm text-center hover:underline"
+            >
+              Create account
+            </Link>
           </div>
         </div>
       </div>
