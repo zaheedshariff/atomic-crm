@@ -19,6 +19,8 @@ const Header = () => {
     currentPath = "/companies";
   } else if (matchPath("/deals/*", location.pathname)) {
     currentPath = "/deals";
+  } else if (matchPath("/equipment/*", location.pathname)) {
+    currentPath = "/equipment";
   } else {
     currentPath = false;
   }
@@ -65,6 +67,11 @@ const Header = () => {
                   label="Deals"
                   to="/deals"
                   isActive={currentPath === "/deals"}
+                />
+                <NavigationTab
+                  label="Listings"
+                  to="/equipment"
+                  isActive={currentPath === "/equipment"}
                 />
               </nav>
             </div>
