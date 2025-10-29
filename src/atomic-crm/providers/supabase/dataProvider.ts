@@ -315,6 +315,30 @@ export const dataProvider = withLifecycleCallbacks(
         return applyFullTextSearch(["name", "type", "description"])(params);
       },
     },
+    {
+      resource: "equipment",
+      beforeGetList: async (params) => {
+        return applyFullTextSearch([
+          "manufacturer",
+          "model",
+          "stock_number",
+          "serial_number",
+          "description",
+          "category",
+          "location",
+        ])(params);
+      },
+      beforeSave: async (data: any, _, __) => {
+        if (data.images && Array.isArray(data.images)) {
+          for (const img of data.images) {
+            if (img.rawFile instanceof File) {
+              await uploadEquipmentImageToBucket(img);
+            }
+          }
+        }
+        return data;
+      },
+    },
   ],
 );
 
@@ -387,6 +411,45 @@ const uploadToBucket = async (fi: RAFile) => {
   // save MIME type
   const mimeType = file.type;
   fi.type = mimeType;
+
+  return fi;
+};
+
+const uploadEquipmentImageToBucket = async (fi: RAFile) => {
+  if (!fi.src.startsWith("blob:") && !fi.src.startsWith("data:")) {
+    if (fi.path) {
+      const { error } = await supabase.storage
+        .from("equipment-images")
+        .createSignedUrl(fi.path, 60);
+
+      if (!error) {
+        return;
+      }
+    }
+  }
+
+  const dataContent = fi.src
+    ? await fetch(fi.src).then((res) => res.blob())
+    : fi.rawFile;
+
+  const file = fi.rawFile;
+  const fileExt = file.name.split(".").pop();
+  const fileName = `${Math.random()}.${fileExt}`;
+  const filePath = `${fileName}`;
+  const { error: uploadError } = await supabase.storage
+    .from("equipment-images")
+    .upload(filePath, dataContent);
+
+  if (uploadError) {
+    console.error("uploadError", uploadError);
+    throw new Error("Failed to upload equipment image");
+  }
+
+  const { data } = supabase.storage.from("equipment-images").getPublicUrl(filePath);
+
+  fi.path = filePath;
+  fi.src = data.publicUrl;
+  fi.type = file.type;
 
   return fi;
 };

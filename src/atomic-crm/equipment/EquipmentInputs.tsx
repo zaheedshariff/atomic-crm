@@ -1,7 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { required } from "ra-core";
-import { NumberInput, SelectInput, TextInput } from "@/components/admin";
+import { FileField, FileInput, NumberInput, SelectInput, TextInput } from "@/components/admin";
 
 export const EquipmentInputs = () => {
   const isMobile = useIsMobile();
@@ -18,6 +18,7 @@ export const EquipmentInputs = () => {
           className="flex-shrink-0"
         />
         <div className="flex flex-col gap-10 flex-1">
+          <ImagesInputs />
           <DetailsInputs />
           <NotesInputs />
         </div>
@@ -93,6 +94,23 @@ const DetailsInputs = () => {
         rows={4}
         helperText={false}
       />
+    </div>
+  );
+};
+
+const ImagesInputs = () => {
+  return (
+    <div className="flex flex-col gap-4">
+      <h6 className="text-lg font-semibold">Images</h6>
+      <FileInput
+        source="images"
+        multiple
+        accept={{ "image/*": [".png", ".jpg", ".jpeg", ".gif", ".webp"] }}
+        maxSize={10000000}
+        helperText="Upload equipment photos (max 10MB per image)"
+      >
+        <FileField source="src" title="title" />
+      </FileInput>
     </div>
   );
 };

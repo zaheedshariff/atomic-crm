@@ -1,7 +1,9 @@
-import { CreateButton, List } from "@/components/admin";
+import { CreateButton, List, SortButton } from "@/components/admin";
 import { Card } from "@/components/ui/card";
+import { useListContext } from "ra-core";
 import { TopToolbar } from "../layout/TopToolbar";
 import { EquipmentListContent } from "./EquipmentListContent";
+import { EquipmentListFilter } from "./EquipmentListFilter";
 
 export const EquipmentList = () => {
   return (
@@ -11,17 +13,42 @@ export const EquipmentList = () => {
       perPage={25}
       sort={{ field: "created_at", order: "DESC" }}
     >
+      <EquipmentListLayout />
+    </List>
+  );
+};
+
+const EquipmentListLayout = () => {
+  const { data, isPending, filterValues } = useListContext();
+
+  const hasFilters = filterValues && Object.keys(filterValues).length > 0;
+
+  if (isPending) return null;
+
+  if (!data?.length && !hasFilters) {
+    return (
+      <div className="flex flex-col items-center justify-center h-96 gap-4">
+        <p className="text-muted-foreground">No equipment listed yet</p>
+        <CreateButton />
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-row gap-8">
+      <EquipmentListFilter />
       <div className="w-full flex flex-col gap-4">
         <Card className="py-0">
           <EquipmentListContent />
         </Card>
       </div>
-    </List>
+    </div>
   );
 };
 
 const EquipmentListActions = () => (
   <TopToolbar>
+    <SortButton fields={["manufacturer", "model", "price", "year", "created_at"]} />
     <CreateButton />
   </TopToolbar>
 );
