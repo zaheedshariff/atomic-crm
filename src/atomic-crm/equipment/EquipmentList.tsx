@@ -1,8 +1,12 @@
 import { CreateButton, List, SortButton } from "@/components/admin";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { useListContext } from "ra-core";
+import { LayoutGrid, LayoutList } from "lucide-react";
+import { useState } from "react";
 import { TopToolbar } from "../layout/TopToolbar";
 import { EquipmentListContent } from "./EquipmentListContent";
+import { EquipmentGrid } from "./EquipmentGrid";
 import { EquipmentListFilter } from "./EquipmentListFilter";
 
 export const EquipmentList = () => {
@@ -20,6 +24,7 @@ export const EquipmentList = () => {
 
 const EquipmentListLayout = () => {
   const { data, isPending, filterValues } = useListContext();
+  const [viewMode, setViewMode] = useState<"list" | "grid">("list");
 
   const hasFilters = filterValues && Object.keys(filterValues).length > 0;
 
@@ -38,9 +43,34 @@ const EquipmentListLayout = () => {
     <div className="flex flex-row gap-8">
       <EquipmentListFilter />
       <div className="w-full flex flex-col gap-4">
-        <Card className="py-0">
-          <EquipmentListContent />
-        </Card>
+        {/* View Toggle */}
+        <div className="flex justify-end gap-2">
+          <Button
+            variant={viewMode === "list" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setViewMode("list")}
+          >
+            <LayoutList className="h-4 w-4 mr-2" />
+            List
+          </Button>
+          <Button
+            variant={viewMode === "grid" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setViewMode("grid")}
+          >
+            <LayoutGrid className="h-4 w-4 mr-2" />
+            Grid
+          </Button>
+        </div>
+
+        {/* Content */}
+        {viewMode === "list" ? (
+          <Card className="py-0">
+            <EquipmentListContent />
+          </Card>
+        ) : (
+          <EquipmentGrid />
+        )}
       </div>
     </div>
   );
