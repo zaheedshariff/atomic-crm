@@ -4,6 +4,7 @@ import type { AuthProvider } from "ra-core";
 import { supabaseAuthProvider } from "ra-supabase-core";
 import { canAccess } from "../commons/canAccess";
 import { supabase } from "./supabase";
+import { ensureSalesRecordForOAuthUser } from "./oauthUserHandler";
 
 const baseAuthProvider = supabaseAuthProvider(supabase, {
   getIdentity: async () => {
@@ -66,6 +67,21 @@ export const authProvider: AuthProvider = {
       return;
     }
 
+    // Get current user session
+    const { data: session } = await supabase.auth.getSession();
+    
+    // For authenticated users, ensure they have a sales record (handles OAuth users)
+    // This must run BEFORE initialization check to allow first OAuth user through
+    if (session?.session?.user) {
+      const wasFirstUser = await ensureSalesRecordForOAuthUser(session.session.user);
+      
+      if (wasFirstUser) {
+        // First user created via OAuth - update cache and proceed
+        getIsInitialized._is_initialized_cache = true;
+        return baseAuthProvider.checkAuth(params);
+      }
+    }
+
     const isInitialized = await getIsInitialized();
 
     if (!isInitialized) {
@@ -110,8 +126,26 @@ const getSaleFromCache = async () => {
     .match({ user_id: dataSession?.session?.user.id })
     .single();
 
-  // Shouldn't happen either as all users are sales but just in case
+  // If no sales record exists, this might be an OAuth user - create one
   if (dataSale == null || errorSale) {
+    try {
+      await ensureSalesRecordForOAuthUser(dataSession.session.user);
+      
+      // Try fetching the sales record again
+      const { data: newSale } = await supabase
+        .from("sales")
+        .select("id, first_name, last_name, avatar, administrator")
+        .match({ user_id: dataSession.session.user.id })
+        .single();
+      
+      if (newSale) {
+        cachedSale = newSale;
+        return newSale;
+      }
+    } catch (error) {
+      console.error("Failed to ensure sales record for user:", error);
+    }
+    
     return undefined;
   }
 
