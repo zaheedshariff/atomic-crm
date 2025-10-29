@@ -25,6 +25,13 @@ Atomic CRM is a full-featured CRM built with React, shadcn-admin-kit, and Supaba
 - ✅ Implemented Google OAuth authentication with automatic user provisioning
 - ✅ Created RLS-safe database function for first-user detection
 - ✅ Configured OAuth to automatically create sales records from Google profile data
+- ✅ **Built Equipment/Inventory Management System**:
+  - Created equipment table with 20+ fields (manufacturer, model, year, condition, location, price, etc.)
+  - Auto-generated stock numbers (EQ000001 format) using database-level GENERATED ALWAYS AS
+  - Implemented Row Level Security so sales reps can only manage their assigned equipment
+  - Built list view with image thumbnails, metadata, status badges, and pricing
+  - Created create/edit forms with fields organized in sections (Basic Info, Pricing, Details, Notes)
+  - Registered equipment resource in CRM navigation
 
 ## Previous Changes (October 27, 2025)
 - ✅ Initial project setup in Replit environment
@@ -40,11 +47,12 @@ Atomic CRM is a full-featured CRM built with React, shadcn-admin-kit, and Supaba
 
 ## Database
 - **Provider**: Supabase (hosted PostgreSQL)
-- **Migrations**: All 10 migrations applied successfully
+- **Migrations**: 12 migrations applied successfully
   - Database schema initialization (contacts, companies, deals, tasks, notes, tags)
+  - Equipment/inventory table with auto-generated stock numbers (EQ000001 format)
   - Triggers and functions
-  - Row-level security policies
-  - JSON fields for emails and phone numbers
+  - Row-level security policies (including equipment ownership rules)
+  - JSON fields for emails, phone numbers, images, and documents
   - RLS-safe `check_has_sales()` function for OAuth first-user detection
 - **Status**: ✅ All migrations synced between local and remote
 
@@ -62,6 +70,14 @@ Atomic CRM is a full-featured CRM built with React, shadcn-admin-kit, and Supaba
 - Dashboard with charts
 - Import/Export functionality (CSV import for contacts)
 - Customizable themes (light/dark)
+- **Equipment/Inventory Management**:
+  - Full CRUD operations for heavy machinery listings
+  - Auto-generated stock numbers (EQ000001, EQ000002, etc.)
+  - List view with thumbnails, status badges, pricing, and metadata
+  - Create/edit forms with sections: Basic Info, Pricing, Details, Notes
+  - Status tracking (Available, Pending, Sold)
+  - Sales rep assignment and ownership
+  - Fields: manufacturer, model, year, condition, location, price, quantity, category, serial number, hours, description, notes
 - **User authentication and management**:
   - Email/password sign-up and login
   - Google OAuth sign-in (automatic user creation from Google profile)
