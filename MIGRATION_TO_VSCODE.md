@@ -2,6 +2,74 @@
 
 This guide will help you move your Atomic CRM project from Replit to VS Code so you can develop locally without spending Replit credits.
 
+## RECOMMENDED: Push to GitHub First
+
+The best way to move your project is to push it to GitHub first, then clone it locally. This gives you version control and makes it easy to work from multiple machines.
+
+### Option A: Push to GitHub (Recommended)
+
+**Step 1: Create a GitHub Repository**
+1. Go to https://github.com/new
+2. Create a new repository (e.g., `atomic-crm`)
+3. Choose **Private** (to keep your code secure)
+4. **Don't** initialize with README (Replit already has files)
+5. Click "Create repository"
+
+**Step 2: Push from Replit to GitHub**
+
+Open the **Shell** in Replit and run these commands:
+
+```bash
+# Initialize git if not already done
+git init
+
+# Add all your files
+git add .
+
+# Commit your code
+git commit -m "Initial commit - Atomic CRM with equipment management"
+
+# Add your GitHub repository as remote
+# Replace YOUR_USERNAME and YOUR_REPO with your actual values
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
+
+# Push to GitHub
+git push -u origin main
+```
+
+**If you get authentication errors:**
+1. Go to https://github.com/settings/tokens
+2. Generate a new token (classic) with `repo` permissions
+3. Use this command instead:
+```bash
+git remote set-url origin https://YOUR_USERNAME:YOUR_TOKEN@github.com/YOUR_USERNAME/YOUR_REPO.git
+git push -u origin main
+```
+
+**Step 3: Clone to Your Local Machine**
+
+Open your terminal/command prompt on your computer and run:
+```bash
+# Navigate to where you want the project
+cd ~/Projects
+
+# Clone from GitHub
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
+
+# Enter the project folder
+cd YOUR_REPO
+```
+
+Now skip to **"Step 3: Install Required Software"** below.
+
+---
+
+### Option B: Download as ZIP (Alternative)
+
+If you prefer not to use GitHub, you can download directly from Replit.
+
+---
+
 ## Step 1: Get Your Supabase Credentials
 
 You'll need these environment variables. Get them from your Supabase Dashboard:
