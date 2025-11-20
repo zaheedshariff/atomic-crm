@@ -245,14 +245,39 @@ When you save changes to any file, Vite will automatically:
 
 ---
 
+## Version Control System
+
+This project uses **Semantic Versioning** to track changes:
+
+### Current Version: 1.0.0
+
+When you make changes locally:
+
+1. **Make your changes** in VS Code
+2. **Test locally**: `npm run dev`
+3. **Bump the version**:
+   - Bug fix: `npm version patch` (1.0.0 → 1.0.1)
+   - New feature: `npm version minor` (1.0.0 → 1.1.0)
+   - Breaking change: `npm version major` (1.0.0 → 2.0.0)
+4. **Update CHANGELOG.md** with your changes
+5. **Commit and push**:
+   ```bash
+   git add .
+   git commit -m "Your descriptive message"
+   git push origin main
+   git push --tags  # Important! This pushes version tags
+   ```
+
+**See `VERSION_CONTROL.md` for detailed instructions and examples.**
+
+---
+
 ## Next Steps
 
 Once you're comfortable with local development:
-1. Consider setting up **Git version control**
+1. ✅ **Version control is already set up** - See `VERSION_CONTROL.md` for workflow
 2. Deploy to **Vercel, Netlify, or Cloudflare Pages** (all have free tiers)
-3. Set up **GitHub** for code backup and collaboration
-
-Your Supabase database remains hosted (so no database hosting needed), and you only need to host the frontend.
+3. Your Supabase database remains hosted (so no database hosting needed), and you only need to host the frontend
 
 ---
 

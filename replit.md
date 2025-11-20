@@ -12,10 +12,32 @@ Atomic CRM is a full-featured CRM built with React, shadcn-admin-kit, and Supaba
 - **Port**: 5000
 - **Main Technologies**: React 19, Vite, TailwindCSS, shadcn/ui, react-admin, Supabase
 
-## Recent Changes (October 29, 2025)
+## Recent Changes (November 20, 2025)
+- ✅ **Version Control System Setup**:
+  - Updated to semantic versioning v1.0.0
+  - Created CHANGELOG.md to track version history
+  - Created VERSION_CONTROL.md with complete workflow guide
+  - Created .env.example template for safe credential sharing
+  - Set up Git tagging system for releases
+  - Updated MIGRATION_TO_VSCODE.md with versioning instructions
+- ✅ **Equipment Management Enhancements**:
+  - Multi-image upload with drag-and-drop support (JPG, PNG, GIF, WebP)
+  - Supabase Storage bucket "equipment-images" with ownership-based RLS policies
+  - Comprehensive search (full-text across manufacturer, model, stock number, serial, description, category, location)
+  - Advanced filtering (status, condition, listing type, price ranges, assigned rep)
+  - Grid view with visual card layout and larger images
+  - List/Grid view toggle buttons
+  - Fixed filter value alignment with database enums
+  - Tightened storage RLS to prevent unauthorized image modifications
+- ✅ **GitHub Integration**:
+  - Repository: https://github.com/zaheedshariff/atomic-crm
+  - Configured GIT_URL secret for authenticated pushes
+  - Ready for local development in VS Code
+
+## Previous Changes (October 29, 2025)
 - ✅ Connected to production Supabase database
 - ✅ Created Supabase project "Atomic CRM Heavy Machinery" in US-East-1 region
-- ✅ Applied all 10 database migrations successfully
+- ✅ Applied 12 database migrations successfully
 - ✅ Configured Supabase credentials as Replit secrets
 - ✅ Updated vite.config.ts with Replit-compatible server settings (port 5000, host 0.0.0.0)
 - ✅ Switched from demo mode to production mode (npm run dev)
@@ -73,11 +95,17 @@ Atomic CRM is a full-featured CRM built with React, shadcn-admin-kit, and Supaba
 - **Equipment/Inventory Management**:
   - Full CRUD operations for heavy machinery listings
   - Auto-generated stock numbers (EQ000001, EQ000002, etc.)
+  - Multi-image upload with drag-and-drop (Supabase Storage)
+  - Secure image storage with ownership-based RLS policies
+  - Comprehensive full-text search across all fields
+  - Advanced filtering (status, condition, listing type, price ranges, assigned rep)
   - List view with thumbnails, status badges, pricing, and metadata
+  - Grid view with card layout and larger images
+  - Toggle between list and grid views
   - Create/edit forms with sections: Basic Info, Pricing, Details, Notes
   - Status tracking (Available, Pending, Sold)
   - Sales rep assignment and ownership
-  - Fields: manufacturer, model, year, condition, location, price, quantity, category, serial number, hours, description, notes
+  - Fields: manufacturer, model, year, condition, location, price, quantity, category, serial number, hours, description, notes, images
 - **User authentication and management**:
   - Email/password sign-up and login
   - Google OAuth sign-in (automatic user creation from Google profile)
@@ -107,17 +135,19 @@ The app is configured for deployment using Replit's autoscale deployment:
 ## Customization
 The CRM can be customized by editing `src/App.tsx` and passing props to the `<CRM>` component. See the inline documentation in that file for available customization options.
 
-## Next Steps for Heavy Machinery Business
-1. **Data Migration**: Import existing customer/contact data using CSV import feature
-2. **Inventory Management**: Add custom resources for heavy machinery inventory
-   - Machine specifications (make, model, year, hours, condition)
-   - Equipment tracking (location, status, maintenance history)
-   - Pricing and availability
-3. **Custom Fields**: Extend company/contact models for machinery-specific needs
-   - Equipment interests
-   - Budget ranges
-   - Industry/use case
-4. **Deal Customization**: Adapt deal pipeline for machinery sales process
+## Version Control
+- **Current Version**: 1.0.0
+- **GitHub Repository**: https://github.com/zaheedshariff/atomic-crm
+- **Versioning Guide**: See `VERSION_CONTROL.md` for complete workflow
+- **Changelog**: See `CHANGELOG.md` for version history
+- **Local Development**: See `MIGRATION_TO_VSCODE.md` for VS Code setup
+
+## Next Steps for Development
+1. **Equipment-Contact Relationships**: Link contacts to equipment they're interested in
+2. **Document Upload**: Add support for PDFs, specs, inspection reports
+3. **Bulk Actions**: "Mark as Sold" for multiple items
+4. **Data Migration**: Import existing customer/contact data using CSV import feature
+5. **Deal Customization**: Adapt deal pipeline for machinery sales process
 
 ## Documentation
 For more information, see:
